@@ -1,0 +1,31 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db?connection_limit=1"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Room {
+  id        String    @id
+  name      String    @unique
+  capacity  Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  bookings  Booking[]
+}
+
+model Booking {
+  id        String   @id @default(uuid())
+  title     String
+  userName  String
+  startTime DateTime
+  endTime   DateTime
+  createdAt DateTime @default(now())
+
+  roomId    String
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@index([roomId, startTime, endTime])
+}

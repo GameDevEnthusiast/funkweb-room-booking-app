@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Local SQLite Database & WAL files
+prisma/dev.db
+prisma/dev.db-journal
+prisma/dev.db-wal
+prisma/dev.db-shm
+
+# Environment variables
+.env
+.env*.local
+
+# Vercel
+.vercel
+
+# Testing
+/coverage
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS junk
+Thumbs.db
+.DS_Store
+*.pem
+
+# IDE & Local History files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.history/
