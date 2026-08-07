@@ -62,6 +62,7 @@ export async function GET(request: Request) {
     return NextResponse.json(response, { status: 500 });
   }
 }
+
 // ----------------------------------------------------------------------------
 // POST /api/bookings
 // Validates input, then creates a booking if the slot is free.
