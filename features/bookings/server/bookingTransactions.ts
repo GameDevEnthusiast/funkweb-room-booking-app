@@ -32,7 +32,8 @@
 
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
-import type { Booking, NewBookingInput } from '@/features/bookings/types';
+import type { Booking } from '@prisma/client';
+import type { NewBookingInput } from '@/features/bookings/types';
 
 // Why this is needed: a dedicated error class lets route.ts distinguish
 // "slot occupied" from every other kind of failure using `instanceof`,

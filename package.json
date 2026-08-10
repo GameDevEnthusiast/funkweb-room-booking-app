@@ -12,18 +12,18 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^5.10.0",
-    "next": "^14.2.25",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "@prisma/client": "^6.19.3",
+    "next": "^15.5.22",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
-    "@types/node": "^20.19.43",
-    "@types/react": "^18.3.31",
-    "@types/react-dom": "^18.3.7",
+    "@types/node": "^22.20.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
     "eslint": "^8",
-    "eslint-config-next": "14.2.35",
-    "prisma": "^5.10.0",
+    "eslint-config-next": "^15.5.22",
+    "prisma": "^6.19.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }

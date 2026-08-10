@@ -24,7 +24,7 @@
  */
 
 import { prisma } from '@/lib/prisma';
-import type { Booking } from '@/features/bookings/types';
+import type { Booking } from '@prisma/client';
 
 // Why this is needed: isolating this one query in its own function means
 // the route handler (and, later, any other feature that needs bookings —

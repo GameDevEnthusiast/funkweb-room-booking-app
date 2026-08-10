@@ -36,7 +36,8 @@ import {
   SlotOccupiedError,
   PoolTimeoutError,
 } from '@/features/bookings/server/bookingTransactions';
-import type { ApiResponse, Booking } from '@/features/bookings/types';
+import type { ApiResponse } from '@/features/bookings/types';
+import type { Booking } from '@prisma/client';
 
 // ----------------------------------------------------------------------------
 // GET /api/bookings?roomId=xxx
