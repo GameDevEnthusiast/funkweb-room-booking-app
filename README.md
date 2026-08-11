@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FunkWeb Meeting Room Booking System
 
-## Getting Started
+A full-stack, local-network meeting room reservation portal built for internal office use. This application prevents double-booking through atomic database transactions and is hosted exclusively on the local subnet (`0.0.0.0`) for maximum internal security and isolation from the public internet.
 
-First, run the development server:
+## 🚀 Tech Stack
 
+*   **Framework:** Next.js 15.5 (App Router)
+*   **UI Library:** React 19
+*   **Language:** TypeScript
+*   **Database:** SQLite (Local `dev.db`)
+*   **ORM:** Prisma 6.19
+*   **Styling:** CSS Variables & System Fonts
+
+## ✨ Key Features
+
+*   **Atomic Double-Booking Prevention:** Utilizes `prisma.$transaction` to combine conflict-checking (`findFirst`) and database insertion (`create`) into a single, isolated database transaction. This ensures strict protection against race conditions under concurrent load.
+*   **Local Network Isolation:** Configured to bind to `0.0.0.0`, keeping the application strictly on the local office Wi-Fi subnet (e.g., `192.168.x.x`) to eliminate public internet exposure.
+*   **Resilient Error Handling:** Includes defensive checks for SQLite's single-writer connection queue limits (P2024 timeouts), returning `503 Service Unavailable` to safely prompt client retries under heavy load.
+*   **Strict Input Validation:** Server-side validation parsing ensures proper data sanitization, date chronology checks (start time < end time), and strict type safety before any database interaction.
+
+## 🛠️ Getting Started
+
+### Prerequisites
+*   [Node.js](https://nodejs.org/) (v20 LTS or higher recommended)
+*   npm, yarn, pnpm, or bun
+
+### 1. Installation
+Clone the repository and install the required dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+npm install
