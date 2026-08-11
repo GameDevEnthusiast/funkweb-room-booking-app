@@ -106,40 +106,50 @@ export async function createBookingIfAvailable(input: NewBookingInput): Promise<
     return newBooking;
 
   } catch (error) {
-    // Why this is needed: SlotOccupiedError must be re-thrown as-is (not
-    // swallowed or converted) so route.ts can catch it specifically and
-    // return a 409 Conflict — re-throwing preserves that error identity
-    // across the function boundary.
-    // What happens if this is removed: route.ts would only ever see a
-    // generic error and couldn't distinguish "slot taken" from "database
-    // crashed," so it would return the wrong HTTP status code.
-    if (error instanceof SlotOccupiedError) {
-      throw error;
-    }
-
-    // Why this is needed: this checks for Prisma's specific P2024 error
-    // code (connection pool / queue timeout) across the different shapes
-    // that error can arrive in, and converts it into our own
-    // PoolTimeoutError so route.ts can return a 503 (retry-able) instead
-    // of a 500 (fatal).
-    // What happens if this is removed: a transient "SQLite was busy"
-    // moment would look identical to a genuine unhandled crash, and the
-    // client wouldn't know it's safe to just retry the request.
-    const isPoolTimeout =
-      (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2024') ||
-      (error as any)?.errorCode === 'P2024' ||
-      (error as any)?.code === 'P2024';
-
-    if (isPoolTimeout) {
-      throw new PoolTimeoutError();
-    }
-
-    // Why this is needed: any other, unanticipated error is re-thrown
-    // unchanged so route.ts's final catch-all branch handles it as a
-    // generic 500 — this function never silently hides an unknown error.
-    // What happens if this is removed: an unexpected error type could be
-    // swallowed here, causing route.ts to never respond to the client at
-    // all instead of returning a 500.
+  // Why this is needed: SlotOccupiedError must be re-thrown as-is (not
+  // swallowed or converted) so route.ts can catch it specifically and
+  // return a 409 Conflict — re-throwing preserves that error identity
+  // across the function boundary.
+  // What happens if this is removed: route.ts would only ever see a
+  // generic error and couldn't distinguish "slot taken" from "database
+  // crashed," so it would return the wrong HTTP status code.
+  if (error instanceof SlotOccupiedError) {
     throw error;
   }
+
+  // Why this is needed: this checks for Prisma's specific P2024 error
+  // code (connection pool / queue timeout) across the different shapes
+  // that error can arrive in, and converts it into our own
+  // PoolTimeoutError so route.ts can return a 503 (retry-able) instead
+  // of a 500 (fatal).
+  // What happens if this is removed: a transient "SQLite was busy"
+  // moment would look identical to a genuine unhandled crash, and the
+  // client wouldn't know it's safe to just retry the request.
+  const isPoolTimeout =
+    (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2024') ||
+    // [ORIGINAL CODE]: (error as any)?.errorCode === 'P2024'
+    // [WHY IT WAS WRONG]: `error` is already `unknown` here (the default, safer catch-variable type) — casting it to `any` doesn't just widen it back, it strips away type checking entirely for this expression, so a typo like `.errrorCode` would compile silently instead of failing.
+    // [HOW THIS IS BETTER]: casting to `{ errorCode?: string }` is a narrow, honest assertion — "if this object has an errorCode property, it's a string" — which is exactly and only what this line needs, while TypeScript still checks the property name and comparison for you.
+    // [WHAT HAPPENS IF REMOVED]: reverting to `any` re-opens the door to a silent property-name typo, which would make this fallback timeout check quietly stop matching real P2024 errors — the kind of bug that's easy to miss until it fails in production under load.
+    // [BEST PRACTICE]: when you need to read one or two optional properties off a value of unknown shape, cast to a small inline object type instead of `any` — it costs one line and keeps the type checker working for you instead of against you.
+    (error as { errorCode?: string })?.errorCode === 'P2024' ||
+    // [ORIGINAL CODE]: (error as any)?.code === 'P2024'
+    // [WHY IT WAS WRONG]: same issue as the line above — `any` here disables checking on the `.code` access too, and this specific line is also the one place a raw driver-level error (not wrapped by Prisma's own error classes) is checked, so it's arguably the most important of the three checks to keep type-safe.
+    // [HOW THIS IS BETTER]: `{ code?: string }` documents, right in the type, exactly what shape this branch expects an unrecognized error object to have — future readers can see the three P2024 shapes this function defends against without needing to guess what `any` was standing in for.
+    // [WHAT HAPPENS IF REMOVED]: same failure mode as above — a typo would silently disable detection of this particular error shape, and it would fall through to the generic re-throw at the bottom, becoming a 500 instead of the intended 503.
+    // [BEST PRACTICE]: when multiple branches check different property names for the "same" underlying condition (as these three lines do for P2024), a short comment explaining *why* there are three shapes — as your existing comment above already does — is what actually prevents a future refactor from "simplifying" this into a bug.
+    (error as { code?: string })?.code === 'P2024';
+
+  if (isPoolTimeout) {
+    throw new PoolTimeoutError();
+  }
+
+  // Why this is needed: any other, unanticipated error is re-thrown
+  // unchanged so route.ts's final catch-all branch handles it as a
+  // generic 500 — this function never silently hides an unknown error.
+  // What happens if this is removed: an unexpected error type could be
+  // swallowed here, causing route.ts to never respond to the client at
+  // all instead of returning a 500.
+  throw error;
+}
 }

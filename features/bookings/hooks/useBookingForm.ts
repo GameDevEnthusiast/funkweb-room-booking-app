@@ -104,7 +104,7 @@ export function useBookingForm(roomId: string, onBookingCreated: () => void) {
       } else {
         setMessage({ text: json.error || 'Failed to reserve room.', type: 'error' });
       }
-    } catch (err) {
+    } catch {
       // Why this is needed: this catch handles network-level failures
       // (e.g. server unreachable) as distinct from application-level
       // failures (e.g. slot occupied), which are handled in the `else`
