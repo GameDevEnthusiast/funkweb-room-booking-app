@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+
+// [ORIGINAL CODE]: (Line was missing)
+// [WHY IT WAS WRONG]: The root layout lacked routing components, making client-side navigation between pages impossible without hard page refreshes.
+// [HOW THIS IS BETTER]: Imports Next.js's native `Link` component to enable fast, client-side SPA navigation without re-downloading layout assets.
+// [WHAT HAPPENS IF REMOVED]: Referencing `<Link>` in the JSX below without this import will cause a TypeScript compiler error and a `ReferenceError: Link is not defined` runtime crash.
+// [BEST PRACTICE]: Always use `next/link` for internal application navigation in Next.js instead of standard HTML `<a>` tags to preserve application state and improve performance.
+import Link from "next/link";
+
 import "./globals.css";
 
 const geistSans = localFont({
@@ -26,6 +34,41 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        {/*
+          // [ORIGINAL CODE]:
+          // {children}
+
+          // [WHY IT WAS WRONG]: The root layout rendered children directly inside <body> without a persistent navigation shell, forcing users to type URLs manually (e.g. /statistics) into the browser address bar.
+
+          // [HOW THIS IS BETTER]: Adds a semantic <header> containing a client-side navigation bar above {children}, providing immediate, clickable access to both Hjem and Statistikk from any page in the application.
+
+          // [WHAT HAPPENS IF REMOVED]: Users will lose the global top navigation bar and have no UI mechanism to navigate to the statistics dashboard.
+
+          // [BEST PRACTICE]: Place application-wide UI shells (navigation headers, sidebars, footers) inside `app/layout.tsx` so they persist across route transitions without re-rendering unnecessarily.
+        */}
+        <header
+          style={{
+            padding: "1rem 2rem",
+            borderBottom: "1px solid #e5e7eb",
+            display: "flex",
+            gap: "1.5rem",
+            alignItems: "center",
+          }}
+        >
+          <Link
+            href="/"
+            style={{ fontWeight: 600, color: "#111827", textDecoration: "none" }}
+          >
+            Hjem
+          </Link>
+          <Link
+            href="/statistics"
+            style={{ fontWeight: 600, color: "#2563eb", textDecoration: "none" }}
+          >
+            Statistikk
+          </Link>
+        </header>
+
         {children}
       </body>
     </html>

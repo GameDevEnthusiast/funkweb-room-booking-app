@@ -1,0 +1,52 @@
+/**
+ * ============================================================================
+ * FILE: features/statistics/components/PeakHoursCard.module.css
+ * PURPOSE: Scoped CSS module for peak room usage cards and hourly slot lists.
+ * IMPORTS: None
+ * EXPORTS: Scoped CSS classes (cardList, card, slotList, slotLabel, slotCount)
+ * ============================================================================
+ */
+
+.cardList {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  background-color: #ffffff;
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+}
+
+.slotList {
+  list-style: decimal;
+  padding-left: 1.25rem;
+  margin: 0;
+}
+
+.slotList li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.15rem 0;
+}
+
+.slotLabel {
+  font-variant-numeric: tabular-nums;
+}
+
+.slotCount {
+  color: #555;
+  font-size: 0.9rem;
+}

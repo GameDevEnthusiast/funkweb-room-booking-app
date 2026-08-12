@@ -1,0 +1,45 @@
+/**
+ * ============================================================================
+ * FILE: features/statistics/components/RoomPopularityTable.module.css
+ * PURPOSE: Scoped module styles for the Room Popularity data table and visual bar indicators.
+ * IMPORTS: None
+ * EXPORTS: Scoped CSS classes (table, srOnly, barTrack, barFill)
+ * ============================================================================
+ */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.barTrack {
+  background: #eee;
+  border-radius: 4px;
+  height: 10px;
+  width: 100%;
+  min-width: 100px;
+}
+
+.barFill {
+  background: #2563eb;
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}

@@ -1,0 +1,32 @@
+/**
+ * ============================================================================
+ * FILE: app/statistics/statistics.module.css
+ * PURPOSE: Top-level layout container styles for the statistics dashboard page.
+ * IMPORTS: None
+ * EXPORTS: Scoped CSS class (container)
+ * ============================================================================
+ */
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.container h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: #111827;
+}
+
+.container section {
+  margin-bottom: 3rem;
+}
+
+.container h2 {
+  font-size: 1.35rem;
+  margin-bottom: 1rem;
+  color: #1f2937;
+  border-bottom: 2px solid #f3f4f6;
+  padding-bottom: 0.5rem;
+}
