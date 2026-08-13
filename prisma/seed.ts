@@ -2,10 +2,30 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+// Replaced 2026-08-12: real office room list (10 rooms, all Floor 5)
+// swapped in for the original 3 placeholder rooms. `floor` is intentionally
+// NOT included here — it's not a column on the current Room model. It's
+// tracked in features/bookings/constants/rooms.ts as display-only metadata
+// for now. If floor needs to be queryable/filterable later, add
+// `floor Int` to the Room model in schema.prisma, run
+// `npx prisma migrate dev --name add_room_floor`, then add `floor: 5` to
+// each entry below.
+//
+// Updated again 2026-08-12: `name` now includes capacity (e.g.
+// "Møterom 1 (Capacity: 12)") so it shows up in the RoomSelector dropdown
+// without touching any component code. The numeric `capacity` field below
+// is unchanged and still populates the separate `capacity` column on Room.
 const DEFAULT_ROOMS = [
-  { id: 'room-a', name: 'Meeting Room A (Main)', capacity: 8 },
-  { id: 'room-b', name: 'Meeting Room B (Focus)', capacity: 4 },
-  { id: 'room-c', name: 'Conference Hall', capacity: 20 },
+  { id: 'hans-kontor', name: 'Hans Kontor (Capacity: 3)', capacity: 3 },
+  { id: 'moterom-1', name: 'Møterom 1 (Capacity: 12)', capacity: 12 },
+  { id: 'moterom-2', name: 'Møterom 2 (Capacity: 4)', capacity: 4 },
+  { id: 'moterom-3', name: 'Møterom 3 (Capacity: 4)', capacity: 4 },
+  { id: 'moterom-4', name: 'Møterom 4 (Capacity: 3)', capacity: 3 },
+  { id: 'moterom-5', name: 'Møterom 5 (Capacity: 3)', capacity: 3 },
+  { id: 'moterom-6', name: 'Møterom 6 (Capacity: 3)', capacity: 3 },
+  { id: 'moterom-7', name: 'Møterom 7 (Capacity: 4)', capacity: 4 },
+  { id: 'moterom-8', name: 'Møterom 8 (Capacity: 10)', capacity: 10 },
+  { id: 'moterom-laila', name: 'Møterom - Laila (Capacity: 3)', capacity: 3 },
 ];
 
 async function main() {

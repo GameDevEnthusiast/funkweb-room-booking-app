@@ -136,7 +136,7 @@ export default function BookingForm({ roomId, onBookingCreated }: BookingFormPro
           disabled={loading}
           style={{
             padding: '10px 20px',
-            background: '#0066cc',
+            background: '#fab63a',
             color: '#fff',
             border: 'none',
             borderRadius: '4px',

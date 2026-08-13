@@ -63,7 +63,7 @@ export default function RootLayout({
           </Link>
           <Link
             href="/statistics"
-            style={{ fontWeight: 600, color: "#2563eb", textDecoration: "none" }}
+            style={{ fontWeight: 600, color: "#fab63a", textDecoration: "none" }}
           >
             Statistikk
           </Link>

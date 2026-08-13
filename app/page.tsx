@@ -49,7 +49,7 @@ export default function BookingPage() {
   // with no way to stay in sync — picking a room in the dropdown would stop
   // actually changing which bookings you see or which room a new booking
   // gets attached to.
-  const [selectedRoom, setSelectedRoom] = useState('room-a');
+  const [selectedRoom, setSelectedRoom] = useState('moterom-1');
 
   // Why this is needed: centralizes the "fetch bookings for this room"
   // logic behind one hook call, and exposes a refetch function so
