@@ -106,6 +106,17 @@ export async function createBookingIfAvailable(input: NewBookingInput): Promise<
     return newBooking;
 
   } catch (error) {
+  // Why this is needed: this is the ONLY place in the call chain that sees
+  // the raw, untyped error before it gets converted into SlotOccupiedError,
+  // PoolTimeoutError, or re-thrown generically — route.ts's catch-all
+  // branch does not log, so without this line an unrecognized error (e.g.
+  // a Prisma P2003 foreign key violation, a P2002 unique constraint, etc.)
+  // would reach the client as a bare 500 with zero information in the
+  // terminal, exactly as happened before this line was added.
+  // What happens if this is removed: real error messages/codes go dark
+  // again and every unclassified failure looks identical from the outside.
+  console.error('createBookingIfAvailable failed:', error);
+
   // Why this is needed: SlotOccupiedError must be re-thrown as-is (not
   // swallowed or converted) so route.ts can catch it specifically and
   // return a 409 Conflict — re-throwing preserves that error identity

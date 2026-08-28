@@ -1,0 +1,22 @@
+*   [33ma8031c5[m[33m ([m[1;35mrefs/stash[m[33m)[m On main: !!GitHub_Desktop<main>
+[31m|[m[32m\[m  
+[31m|[m * [33mf0210fe[m index on main: 56ca511 Initial commit
+[31m|[m[31m/[m  
+[31m|[m * [33me5b5b1d[m[33m ([m[1;31morigin/GameDevEnthusiast-patch-1[m[33m)[m Update README with branch status note
+[31m|[m[31m/[m  
+[31m|[m * [33mb5292b2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mbackup/snapshot-before-main-merge[m[33m, [m[1;31morigin/backup/snapshot-before-main-merge[m[33m)[m chore: snapshot before merging main
+[31m|[m * [33m4e9a8e7[m[33m ([m[1;32mbackup/before-adding-10-office-rooms[m[33m)[m backup: snapshot before updating from 3 placeholder rooms to the 10 actual office rooms
+[31m|[m [34m|[m *   [33m4e524e1[m cline checkpoint session=1786527157160_h9g1e run=1
+[31m|[m [34m|[m[34m/[m[36m|[m[1;31m\[m  
+[31m|[m [34m|[m [36m|[m * [33m9c10d0f[m untracked files on cline checkpoint
+[31m|[m [34m|[m * [33m86329ac[m index on backup/before-port-80-changes: 3e73612 backup: snapshot before modifying package.json for port 80
+[31m|[m [34m|[m[34m/[m  
+[31m|[m [34m|[m *   [33me824863[m cline checkpoint session=1786527102668_b093n run=1
+[31m|[m [34m|[m[34m/[m[1;33m|[m[1;34m\[m  
+[31m|[m [34m|[m [1;33m|[m * [33mfeadbee[m untracked files on cline checkpoint
+[31m|[m [34m|[m * [33m3d168fb[m index on backup/before-port-80-changes: 3e73612 backup: snapshot before modifying package.json for port 80
+[31m|[m [34m|[m[34m/[m  
+[31m|[m * [33m3e73612[m[33m ([m[1;32mbackup/before-port-80-changes[m[33m)[m backup: snapshot before modifying package.json for port 80
+[31m|[m * [33mfc82918[m[33m ([m[1;31morigin/snapshot/pre-statistics-feature[m[33m, [m[1;32msnapshot/pre-statistics-feature[m[33m)[m snapshot: save state prior to starting statistics feature implementation
+[31m|[m * [33mda75102[m[33m ([m[1;31morigin/chore/deps-upgrade[m[33m, [m[1;32mchore/deps-upgrade[m[33m)[m fix: resolve ESLint and TypeScript compilation issues
+[31m|[m * [33m9adf400[m chore: upgrade to Next 15.5.22, React 19, Prisma 6.19.3; fix Booking type imports; restore empty component files
